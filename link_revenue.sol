@@ -1,4 +1,4 @@
-pragma solidity ^0.4.9;
+pragma solidity ^0.4.10;
 
 
 /**
@@ -16,6 +16,24 @@ contract LinkRevenue {
         owner = msg.sender;
     }
 
+    modifier isOwner() {
+        if (msg.sender != owner) {
+            throw;
+        }
+        _;
+    }
+
+    function changeOwner(address newOwner) external isOwner {
+        owner = newOwner;
+    }
+
+    function withdraw() external isOwner {
+        uint released = getReleased();
+        uint amount = released - withdrawn;
+        withdrawn = released;
+        owner.transfer(amount);
+    }
+
     function getReleased() constant returns (uint released) {
         uint dailyAmount = 50000 ether;
         int elapsed = int((block.timestamp - startTime) / 1 days);
@@ -24,22 +42,6 @@ contract LinkRevenue {
             released += uint((elapsed < 200) ? elapsed : 200) * dailyAmount;
             dailyAmount -= 5000 ether;
             elapsed -= 200;
-        }
-    }
-
-    function changeOwner(address newOwner) external {
-        if (msg.sender != owner) {
-            throw;
-        }
-        owner = newOwner;
-    }
-
-    function withdraw() external {
-        uint released = getReleased();
-        uint amount = released - withdrawn;
-        withdrawn = released;
-        if (!owner.call.value(amount)()) {
-            throw;
         }
     }
 
