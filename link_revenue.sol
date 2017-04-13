@@ -3,7 +3,7 @@ pragma solidity ^0.4.10;
 
 /**
  * @title LinkRevenue
- * @author Jonathan Brown <jbrown@bluedroplet.com>
+ * @author Jonathan Brown <jbrown@link-blockchain.org>
  */
 contract LinkRevenue {
 
@@ -17,9 +17,7 @@ contract LinkRevenue {
     }
 
     modifier isOwner() {
-        if (msg.sender != owner) {
-            throw;
-        }
+        require (msg.sender == owner);
         _;
     }
 
