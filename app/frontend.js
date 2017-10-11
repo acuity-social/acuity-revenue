@@ -65,7 +65,7 @@ $(function() {
           var days = 2000 - parseInt((end - result.timestamp) / 86400);
           
           var rate = Math.max(0, 50000 - (parseInt(days / 200) * 5000));
-          $("#current-rate").text(rate.toLocaleString() + " LINK per day");
+          $("#current-rate").text(rate.toLocaleString() + " MIX per day");
 
           var chart = new Highcharts.Chart({
             title: {
@@ -163,7 +163,7 @@ $(function() {
             text: null
         },
         tooltip: {
-            pointFormat: '<b>{point.y} LINK</b>'
+            pointFormat: '<b>{point.y} MIX</b>'
         },
         plotOptions: {
             pie: {
