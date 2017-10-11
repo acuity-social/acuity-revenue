@@ -4,7 +4,7 @@ var $ = require("jquery");
 
 $(function() {
   var Web3 = require('web3');
-  var web3 = new Web3(new Web3.providers.HttpProvider("https://rpc.link-blockchain.org:8647"));
+  var web3 = new Web3(new Web3.providers.HttpProvider("https://rpc.mix-blockchain.org:8647"));
   var link_revenue_sol_linkrevenueContract = web3.eth.contract([{"constant":false,"inputs":[],"name":"withdraw","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"startTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"changeOwner","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"withdrawn","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getReleased","outputs":[{"name":"released","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"oldOwner","type":"address"},{"indexed":false,"name":"newOwner","type":"address"}],"name":"ChangeOwner","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"recipient","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"Withdraw","type":"event"}]);
   var link_revenue_sol_linkrevenue = link_revenue_sol_linkrevenueContract.at("0x97c7f4f8f0bbf384578a9f5754ae73f37ff49ec2");
 
