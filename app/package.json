@@ -26,7 +26,7 @@
   "dependencies": {
     "express": "^4.16.3",
     "highcharts": "^5.0.15",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "web3": "^0.20.6"
   }
 }
