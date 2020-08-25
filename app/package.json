@@ -25,7 +25,7 @@
   "homepage": "https://github.com/link-blockchain/link-revenue#readme",
   "dependencies": {
     "express": "^4.16.3",
-    "highcharts": "^5.0.15",
+    "highcharts": "^7.2.2",
     "jquery": "^3.3.1",
     "web3": "^0.20.6"
   }
