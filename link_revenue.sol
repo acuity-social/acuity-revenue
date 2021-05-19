@@ -1,15 +1,12 @@
-pragma solidity ^0.4.10;
-
-
 /**
  * @title LinkRevenue
  * @author Jonathan Brown <jbrown@link-blockchain.org>
  */
 contract LinkRevenue {
 
-    uint public startTime;
-    uint public withdrawn;
-    address public owner;
+    uint128 public startTime;
+    uint128 public withdrawn;
+    address payable public owner;
 
     /**
      * @dev The owner of this contract has chanaged.
@@ -36,7 +33,7 @@ contract LinkRevenue {
     /**
      * @dev Constructor.
      */
-    function LinkRevenue() {
+    constructor() {
         startTime = block.timestamp;
         owner = msg.sender;
     }
@@ -45,31 +42,36 @@ contract LinkRevenue {
      * @dev Changes the owner of the contract.
      * @param newOwner The new owner of the contract.
      */
-    function changeOwner(address newOwner) external isOwner {
+    function changeOwner(address payable newOwner) external isOwner {
         owner = newOwner;
-        ChangeOwner(msg.sender, newOwner);
+        emit ChangeOwner(msg.sender, newOwner);
     }
 
     /**
      * @dev Withdraws any available funds to the owner.
      */
     function withdraw() external isOwner {
-        uint released = getReleased();
-        uint amount = released - withdrawn;
+        uint128 released = getReleased();
+        uint128 amount = released - withdrawn;
         withdrawn = released;
         owner.transfer(amount);
-        Withdraw(owner, amount);
+        emit Withdraw(owner, amount);
     }
 
     /**
      * @dev Determines how much Link has been released in total so far.
      */
-    function getReleased() constant returns (uint released) {
-        uint dailyAmount = 50000 ether;
-        int elapsed = int((block.timestamp - startTime) / 1 days);
+    function getReleased() public view returns (uint128 released) {
+        uint128 dailyAmount = 50000 ether;
+        int128 elapsed = int128((block.timestamp - startTime) / 1 days);
 
         while ((dailyAmount != 0) && (elapsed > 0)) {
-            released += uint((elapsed < 200) ? elapsed : 200) * dailyAmount;
+            if (elapsed < 200) {
+                released += uint128(elapsed) * dailyAmount;
+            }
+            else {
+                released += 200 * dailyAmount;
+            }
             dailyAmount -= 5000 ether;
             elapsed -= 200;
         }
