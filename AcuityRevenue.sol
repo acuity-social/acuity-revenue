@@ -34,7 +34,7 @@ contract AcuityRevenue {
      * @dev Constructor.
      */
     constructor() {
-        startTime = block.timestamp;
+        startTime = 1493240400;
         owner = msg.sender;
     }
 
