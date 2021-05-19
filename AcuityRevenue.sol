@@ -1,8 +1,8 @@
 /**
- * @title LinkRevenue
- * @author Jonathan Brown <jbrown@link-blockchain.org>
+ * @title AcuityRevenue
+ * @author Jonathan Brown <jbrown@acuity.social>
  */
-contract LinkRevenue {
+contract AcuityRevenue {
 
     uint128 public startTime;
     uint128 public withdrawn;
@@ -18,7 +18,7 @@ contract LinkRevenue {
     /**
      * @dev A withdrawal has occured.
      * @param recipient Recipient of the withdrawal.
-     * @param amount Amount of Link withdrawn.
+     * @param amount Amount of ACU withdrawn.
      */
     event Withdraw(address recipient, uint amount);
 
@@ -59,7 +59,7 @@ contract LinkRevenue {
     }
 
     /**
-     * @dev Determines how much Link has been released in total so far.
+     * @dev Determines how much ACU has been released in total so far.
      */
     function getReleased() public view returns (uint128 released) {
         uint128 dailyAmount = 50000 ether;
